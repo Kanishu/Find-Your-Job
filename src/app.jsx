@@ -59,7 +59,15 @@
           }, 600);
         });
       },
-    };
+         deleteJob: (jobId) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            mockDB.jobs = mockDB.jobs.filter(job => job.id !== jobId);
+            resolve({ success: true });
+          }, 500);
+        });
+      },
+    
 
     // ======================= FRONTEND REACT APP =======================
     const { useState, useEffect } = React;

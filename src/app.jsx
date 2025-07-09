@@ -406,11 +406,19 @@
       );
     }
 
-    function JobsList({ jobs, user }) {
+  function JobsList({ jobs, user }) {
       const [applicationJob, setApplicationJob] = useState(null);
       const [showSuccess, setShowSuccess] = useState(false);
 
       const handleApplyClick = (job) => {
+    };
+
+      const handleDeleteJob = async (jobId) => {
+        await api.deleteJob(jobId);
+        const data = await api.getJobs();
+        return data;
+      };
+    const handleApplyClick = (job) => {
         console.log('Applying for:', job.title);
         setApplicationJob(job);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -446,6 +454,7 @@
                   job={job} 
                   user={user}
                   onApplyClick={() => handleApplyClick(job)}
+                  onDeleteClick={jobId => handleDeleteJob(jobId).then(data => setJobs(data))}
                 />
               ))
             ) : (
